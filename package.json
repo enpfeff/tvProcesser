@@ -1,8 +1,30 @@
 {
   "name": "tv-processor",
   "version": "0.0.1",
+  "description": "This will parse out info from a downloaded file and put it into a directory",
+  "main": "start.js",
   "dependencies": {
-    "lodash": "3.x.x",
-    "minimist": "^1.2.0"
-  }
+    "minimist": "^1.2.0",
+    "lodash": "^3.10.1",
+    "optimist": "^0.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enpfeff/tvProcessor.git"
+  },
+  "keywords": [
+    "processor",
+    "parser",
+    "tv"
+  ],
+  "author": "Ginter Productions",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enpfeff/tvProcessor/issues"
+  },
+  "homepage": "https://github.com/enpfeff/tvProcessor#readme"
 }
