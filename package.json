@@ -1,0 +1,8 @@
+{
+  "name": "tv-processor",
+  "version": "0.0.1",
+  "dependencies": {
+    "lodash": "3.x.x",
+    "minimist": "^1.2.0"
+  }
+}
