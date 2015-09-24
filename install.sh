@@ -9,7 +9,7 @@ install_dir=/opt/tv-processor
 
 mkdir -p ${install_dir}
 cp -rf config lib package.json start.js uninstall.sh process-tv.sh ${install_dir}
-chmod -R 755 ${install_dir}
+chmod -R 777 ${install_dir}
 cd ${install_dir}
 npm install
 
