@@ -7,7 +7,9 @@
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "tvdb": "0.0.13"
+    "node-prowl": "^0.1.7",
+    "tvdb": "0.0.13",
+    "winston": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {

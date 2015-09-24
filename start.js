@@ -5,20 +5,47 @@ var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
 var config = require('./config/all');
 var utils = require('./lib/utils');
+var commands = require('./lib/commands');
 var parser = require('./lib/parsers/scene');
+var loggerInit = require('./lib/logger')();
+var path = require('path');
+
+var logger = loggerInit.logger;
+
+//1. check to see if destination directory exists and make it if not
+utils.exists(config.tvDestDirectory, true);
+//2. test to make sure the staging directory is there if not exit thats bad
+if (!utils.exists(config.tvStagingDirectory)) {
+    logger.error('Staging directory does not exist, exiting...');
+    process.exit(1);
+}
 
 //check arguments
 if ((args.h) || (args.help)) {
     // they just want help
-    console.log(config.help);
+    logger.error(config.help);
     process.exit(0);
 }
 
-parser.parse('doctor_who_2005.9x01.the_magicians_apprentice.720p_hdtv_x264-fov.mkv');
-parser.parse('South.Park.S19E01.720p.HDTV.x264 KILLERS.mkv');
-parser.parse('South.Park.S05E12.720p.HDTV.x264 KILLERS.mkv');
+if (args._.length === 1) {
+    var srcFile = args._[0];
+    // ok were good to go lets do our job
+    if (!utils.exists(srcFile)) {
+        logger.error(srcFile + ' Does not exist');
+        process.exit(1);
+    }
+    var fileObject = parser.parse(path.basename(srcFile));
 
-//The first arg should be the file you are manipulating
-if (args._[0]) {
-    // do it
+    var directoryStructure = config.directoryStructure;
+
+    directoryStructure = directoryStructure.replace(/%n/, fileObject.seriesName);
+    directoryStructure = directoryStructure.replace(/%s/, fileObject.season.toString());
+    directoryStructure = directoryStructure.replace(/%o/, fileObject.fileName);
+
+    utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
+
+    commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
+} else {
+    logger.error(config.help);
+    process.exit(1);
 }
