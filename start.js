@@ -9,6 +9,7 @@ var commands = require('./lib/commands');
 var parser = require('./lib/parsers/scene');
 var loggerInit = require('./lib/logger')();
 var path = require('path');
+var plex = require('./lib/plexUpdater');
 
 var logger = loggerInit.logger;
 
@@ -45,6 +46,17 @@ if (args._.length === 1) {
     utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
 
     commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
+    logger.info('symlink created: ' + config.tvDestDirectory + directoryStructure);
+
+    // after the symlink is created update plex
+    plex.findLibraries('show').then(function(directories) {
+        var keys = [];
+        _.forEach(directories, function(dir) {
+            keys.push(dir.key);
+        });
+        plex.refreshLibraries(keys);
+    });
+
 } else {
     logger.error(config.help);
     process.exit(1);

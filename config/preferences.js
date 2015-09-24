@@ -3,13 +3,13 @@
  */
 module.exports = {
     // Directory where files are downloaded to
-    tvStagingDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/stage',
+    tvStagingDirectory: '/drives/eve/stagedTv',
 
     // Directory where the files should go
-    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/dest',
+    tvDestDirectory: '/drives/eve/tv',
 
     // where should we log use full paths
-    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/log.txt',
+    loggingFile: '/opt/tv-processor/log/log.txt',
 
     // should we symlink - false or move - true
     move: 'false',
@@ -22,5 +22,8 @@ module.exports = {
     // %s - season #
     // %o - original filename
     // %n - series name
-    directoryStructure: '/%n/Season %s/%o'
+    directoryStructure: '/%n/Season %s/%o',
+
+    //plex url
+    PLEX_URL: '192.168.1.5'
 };
