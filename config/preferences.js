@@ -6,7 +6,7 @@ module.exports = {
     tvStagingDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/stage',
 
     // Directory where the files should go
-    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/dest/in/suck/it',
+    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/dest',
 
     // where should we log use full paths
     loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/log.txt',
@@ -14,11 +14,13 @@ module.exports = {
     // should we symlink - false or move - true
     move: 'false',
 
+    // if this is set we'll send completes via prowl
+    PROWL_API_KEY: '',
+
     // How the Tv shows will be moved or symlinked into the tvDestDirectory
-    // note: make sure you escape your spaces
     //
     // %s - season #
     // %o - original filename
     // %n - series name
-    directoryStructure: '%n/Season\ %s/%o'
+    directoryStructure: '/%n/Season %s/%o'
 };

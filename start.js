@@ -5,9 +5,12 @@ var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
 var config = require('./config/all');
 var utils = require('./lib/utils');
+var commands = require('./lib/commands');
 var parser = require('./lib/parsers/scene');
-var logger = require('./lib/logger')();
+var loggerInit = require('./lib/logger')();
 var path = require('path');
+
+var logger = loggerInit.logger;
 
 //1. check to see if destination directory exists and make it if not
 utils.exists(config.tvDestDirectory, true);
@@ -25,8 +28,23 @@ if ((args.h) || (args.help)) {
 }
 
 if (args._.length === 1) {
+    var srcFile = args._[0];
     // ok were good to go lets do our job
+    if (!utils.exists(srcFile)) {
+        logger.error(srcFile + ' Does not exist');
+        process.exit(1);
+    }
+    var fileObject = parser.parse(path.basename(srcFile));
 
+    var directoryStructure = config.directoryStructure;
+
+    directoryStructure = directoryStructure.replace(/%n/, fileObject.seriesName);
+    directoryStructure = directoryStructure.replace(/%s/, fileObject.season.toString());
+    directoryStructure = directoryStructure.replace(/%o/, fileObject.fileName);
+
+    utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
+
+    commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
 } else {
     logger.error(config.help);
     process.exit(1);
