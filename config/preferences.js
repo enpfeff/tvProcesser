@@ -9,7 +9,7 @@ module.exports = {
     tvDestDirectory: '/drives/eve/tv',
 
     // where should we log use full paths
-    loggingFile: '/opt/tv-processor/log/log.txt',
+    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/ian/is/cool/log.txt',
 
     // should we symlink - false or move - true
     move: 'false',
