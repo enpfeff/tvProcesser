@@ -15,5 +15,6 @@ chown -R media:data ${install_dir}
 cd ${install_dir}
 npm install
 
-chmod +x /usr/bin/*
-cp -f ${bin}/* /usr/bin/
+chmod +x ${bin}/*
+cp -f ${bin}/plex-updater.sh /usr/bin/plex-updater
+cp -f ${bin}/process-tv.sh /usr/bin/process-tv
