@@ -1,14 +1,14 @@
 /**
  * Created by ianpfeffer on 9/22/15.
  */
-var preferences = require('./preferences');
-var _ = require('lodash');
-
 config = {
-    help: "This is a useful help message",
+    help : {
+        plexUpdater: 'Plex updater requires a type of library as its first and only arg e.g. (plex-updater shows)',
+        processTv: 'Process tv requies a file name as its first and only arg'
+    },
 
     //Incase we want to query tvdbs database
-    TVDB_API_KEY: 'D3CC442FB9491333'
+    TVDB_API_KEY: ''
 };
 
-module.exports = _.extend({}, config, preferences);
+module.exports = config;

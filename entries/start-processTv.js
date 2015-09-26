@@ -3,15 +3,24 @@
  */
 var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
-var config = require('./config/all');
-var utils = require('./lib/utils');
-var commands = require('./lib/commands');
-var parser = require('./lib/parsers/scene');
-var loggerInit = require('./lib/logger')();
 var path = require('path');
-var plex = require('./lib/plexUpdater');
 
-var logger = loggerInit.logger;
+var dev = false;
+//check arguments
+if ((args.d) || (args.dev)) {
+    // they just want help
+    console.log("Dev Environment Set");
+    dev = true;
+}
+var config = dev ? require('../config/configFactory').getConfig('dev') : require('../config/configFactory').getConfig();
+
+var utils = require('../lib/utils');
+var commands = require('../lib/commands');
+var parser = require('../lib/parsers/scene');
+var log = require('../lib/loggerFactory');
+var plex = require('../lib/plexUpdater');
+
+var logger = log.getLogger();
 
 //1. check to see if destination directory exists and make it if not
 utils.exists(config.tvDestDirectory, true);
@@ -24,7 +33,7 @@ if (!utils.exists(config.tvStagingDirectory)) {
 //check arguments
 if ((args.h) || (args.help)) {
     // they just want help
-    logger.error(config.help);
+    logger.error(config.help.processTv);
     process.exit(0);
 }
 
@@ -45,7 +54,11 @@ if (args._.length === 1) {
 
     utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
 
-    commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
+    var success = commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
+    if (!success) {
+        process.exit(0);
+    }
+
     logger.info('symlink created: ' + config.tvDestDirectory + directoryStructure);
 
     // after the symlink is created update plex
@@ -58,6 +71,6 @@ if (args._.length === 1) {
     });
 
 } else {
-    logger.error(config.help);
+    logger.error(config.help.processTv);
     process.exit(1);
 }
