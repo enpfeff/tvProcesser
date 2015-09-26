@@ -3,15 +3,15 @@
  */
 var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
-var config = require('./config/all');
-var utils = require('./lib/utils');
-var commands = require('./lib/commands');
-var parser = require('./lib/parsers/scene');
-var loggerInit = require('./lib/logger')();
+var config = require('../config/all');
+var utils = require('../lib/utils');
+var commands = require('../lib/commands');
+var parser = require('../lib/parsers/scene');
+var log = require('../lib/loggerFactory');
 var path = require('path');
-var plex = require('./lib/plexUpdater');
+var plex = require('../lib/plexUpdater');
 
-var logger = loggerInit.logger;
+var logger = log.getLogger();
 
 //1. check to see if destination directory exists and make it if not
 utils.exists(config.tvDestDirectory, true);

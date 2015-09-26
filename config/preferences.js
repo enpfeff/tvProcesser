@@ -24,6 +24,10 @@ module.exports = {
     // %n - series name
     directoryStructure: '/%n/Season %s/%o',
 
-    //plex url
-    PLEX_URL: '192.168.1.5'
+    plex : {
+        //plex url
+        PLEX_URL: '192.168.1.5',
+        user: '',
+        pass: ''
+    }
 };

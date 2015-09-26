@@ -8,7 +8,7 @@ config = {
     help: "This is a useful help message",
 
     //Incase we want to query tvdbs database
-    TVDB_API_KEY: 'D3CC442FB9491333'
+    TVDB_API_KEY: ''
 };
 
 module.exports = _.extend({}, config, preferences);

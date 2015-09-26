@@ -6,14 +6,14 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 install_dir=/opt/tv-processor
+bin=${install_dir}/bin
 
 mkdir -p ${install_dir}
-cp -rf config lib package.json start.js plex-updater.sh start-plexUpdater.js uninstall.sh process-tv.sh ${install_dir}
-chmod -R 777 ${install_dir}
+cp -rf config lib entries bin package.json uninstall.sh ${install_dir}
+chmod -R 775 ${install_dir}
+chown -R media:data ${install_dir}
 cd ${install_dir}
 npm install
 
-cp -f ${install_dir}/process-tv.sh /usr/bin/process-tv
-cp -f ${install_dir}/plex-updater.sh /usr/bin/plex-updater
-chmod 755 /usr/bin/plex-updater
-chmod 755 /usr/bin/process-tv
+chmod +x /usr/bin/*
+cp -f ${bin}/* /usr/bin/
