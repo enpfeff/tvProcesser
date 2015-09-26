@@ -1,15 +1,15 @@
 /**
- * Created by ianpfeffer on 9/22/15.
+ * Created by ianpfeffer on 9/26/15.
  */
 module.exports = {
     // Directory where files are downloaded to
-    tvStagingDirectory: '/drives/eve/stagedTv',
+    tvStagingDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/stage',
 
     // Directory where the files should go
-    tvDestDirectory: '/drives/eve/tv',
+    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/dest',
 
     // where should we log use full paths
-    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/ian/is/cool/log.txt',
+    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/log.txt',
 
     // should we symlink - false or move - true
     move: 'false',
