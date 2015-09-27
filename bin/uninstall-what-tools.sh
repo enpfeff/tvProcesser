@@ -11,3 +11,4 @@ rm -rf ${install_dir}
 
 rm -f /usr/bin/process-tv
 rm -f /usr/bin/plex-updater
+rm -f /usr/bin/uninstall-what-tools
