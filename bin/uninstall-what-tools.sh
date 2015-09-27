@@ -5,9 +5,10 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-install_dir=/opt/tv-processor
+install_dir=/opt/what-tools
 
 rm -rf ${install_dir}
 
 rm -f /usr/bin/process-tv
 rm -f /usr/bin/plex-updater
+rm -f /usr/bin/uninstall-what-tools

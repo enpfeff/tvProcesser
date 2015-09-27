@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install_dir=/opt/tv-processor
+install_dir=/opt/what-tools
 entry=${install_dir}/entries
 
 if [ $# -eq 1 ]; then
