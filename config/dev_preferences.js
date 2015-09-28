@@ -24,6 +24,7 @@ module.exports = {
     // %o - original filename
     // %n - series name
     directoryStructure: '/%n/Season %s/%o',
+    directoryStructureSeason: '/%n/Season %s',
 
     plex : {
         //plex url
