@@ -4,6 +4,7 @@
 var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
 var path = require('path');
+var fs = require('fs');
 
 var dev = false;
 //check arguments
@@ -46,20 +47,31 @@ if (args._.length === 1) {
     }
     var fileObject = parser.parse(path.basename(srcFile));
 
-    var directoryStructure = config.directoryStructure;
+    if (!fileObject.isSeason) {
+        var directoryStructure = config.directoryStructure;
+        directoryStructure = directoryStructure.replace(/%n/, fileObject.seriesName);
+        directoryStructure = directoryStructure.replace(/%s/, fileObject.season.toString());
+        directoryStructure = directoryStructure.replace(/%o/, fileObject.fileName);
 
-    directoryStructure = directoryStructure.replace(/%n/, fileObject.seriesName);
-    directoryStructure = directoryStructure.replace(/%s/, fileObject.season.toString());
-    directoryStructure = directoryStructure.replace(/%o/, fileObject.fileName);
+        utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
 
-    utils.exists(config.tvDestDirectory + path.dirname(directoryStructure), true);
+        var success = commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
+        if (!success) {
+            process.exit(0);
+        }
 
-    var success = commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
-    if (!success) {
-        process.exit(0);
+        logger.info('symlink created: ' + config.tvDestDirectory + directoryStructure);
+    } else {
+        var directoryStructureSeason = config.directoryStructureSeason;
+        directoryStructureSeason = directoryStructureSeason.replace(/%n/, fileObject.seriesName);
+        directoryStructureSeason = directoryStructureSeason.replace(/%s/, fileObject.season);
+
+        utils.exists(config.tvDestDirectory + directoryStructureSeason, true);
+        var list = fs.readdirSync(srcFile);
+        _.forEach(list, function(file) {
+             commands.symlink(srcFile + '/' + file, config.tvDestDirectory + directoryStructureSeason + '/' + file);
+        });
     }
-
-    logger.info('symlink created: ' + config.tvDestDirectory + directoryStructure);
 
     // after the symlink is created update plex
     plex.findLibraries('show').then(function(directories) {
