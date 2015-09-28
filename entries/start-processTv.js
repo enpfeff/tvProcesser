@@ -57,7 +57,7 @@ if (args._.length === 1) {
 
         var success = commands.symlink(srcFile, config.tvDestDirectory + directoryStructure);
         if (!success) {
-            process.exit(0);
+            process.exit(1);
         }
 
         logger.info('symlink created: ' + config.tvDestDirectory + directoryStructure);
@@ -70,6 +70,14 @@ if (args._.length === 1) {
         var list = fs.readdirSync(srcFile);
         _.forEach(list, function(file) {
              commands.symlink(srcFile + '/' + file, config.tvDestDirectory + directoryStructureSeason + '/' + file);
+        });
+    }
+
+    if (logger.prowl) {
+        var msg = 'Download ' + path.basename(srcFile) + ' successfully added to ' + directoryStructure ? directoryStructure : directoryStructureSeason;
+
+        logger.prowl.push(msg, 'What', function( err, remaining ){
+            if( err ) throw err;
         });
     }
 
