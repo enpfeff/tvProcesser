@@ -1,7 +1,3 @@
-/**
- * Created by ianpfeffer on 9/22/15.
- */
-
 // ------------------------------------------------------------------------
 // Setup
 // ------------------------------------------------------------------------
@@ -96,10 +92,25 @@ if (args._.length === 1) {
                 commands.symlink(srcFile + '/' + file, config.tvDestDirectory + directoryStructureSeason + '/' + file);
             });
         }
-    } else if (movie){
-        // we dont really care right now but heres the hook
-    }
 
+        // after the symlink is created update plex
+        plex.findLibraries('show').then(function(directories) {
+            var keys = [];
+            _.forEach(directories, function(dir) {
+                keys.push(dir.key);
+            });
+            plex.refreshLibraries(keys);
+        });
+    } else if (movie){
+        // after the symlink is created update plex
+        plex.findLibraries('movie').then(function(directories) {
+            var keys = [];
+            _.forEach(directories, function(dir) {
+                keys.push(dir.key);
+            });
+            plex.refreshLibraries(keys);
+        });
+    }
 
     if (logger.prowl) {
         var msg = path.basename(srcFile) + ' Successfully Downloaded';
@@ -108,15 +119,6 @@ if (args._.length === 1) {
             if( err ) throw err;
         });
     }
-
-    // after the symlink is created update plex
-    plex.findLibraries('show').then(function(directories) {
-        var keys = [];
-        _.forEach(directories, function(dir) {
-            keys.push(dir.key);
-        });
-        plex.refreshLibraries(keys);
-    });
 
 } else {
     logger.error(config.help.processTv);

@@ -3,13 +3,13 @@
  */
 module.exports = {
     // Directory where files are downloaded to
-    tvStagingDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/stage',
+    tvStagingDirectory: '/Users/ianpfeffer/Workspaces/Mess/what-tools/out/stage',
 
     // Directory where the files should go
-    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/dest',
+    tvDestDirectory: '/Users/ianpfeffer/Workspaces/Mess/what-tools/out/dest',
 
     // where should we log use full paths
-    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/tvProcessor/out/log.txt',
+    loggingFile: '/Users/ianpfeffer/Workspaces/Mess/what-tools/out/log.txt',
 
     // should we symlink - false or move - true
     move: 'false',
