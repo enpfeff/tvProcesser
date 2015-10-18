@@ -17,5 +17,5 @@ npm install
 chmod -R 775 ${install_dir}/node_modules
 
 cp -f ${bin}/plex-updater.sh /usr/bin/plex-updater && chmod 775 /usr/bin/plex-updater
-cp -f ${bin}/process-tv.sh /usr/bin/process-tv && chmod 775 /usr/bin/process-tv
+cp -f ${bin}/process-torrent.sh /usr/bin/process-torrent && chmod 775 /usr/bin/process-torrent
 cp -f ${bin}/uninstall-what-tools.sh /usr/bin/uninstall-what-tools && chmod 775 /usr/bin/uninstall-what-tools

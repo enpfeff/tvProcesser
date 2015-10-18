@@ -9,6 +9,6 @@ install_dir=/opt/what-tools
 
 rm -rf ${install_dir}
 
-rm -f /usr/bin/process-tv
+rm -f /usr/bin/process-torrent
 rm -f /usr/bin/plex-updater
 rm -f /usr/bin/uninstall-what-tools
