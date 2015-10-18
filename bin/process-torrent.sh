@@ -3,8 +3,8 @@
 install_dir=/opt/what-tools
 entry=${install_dir}/entries
 
-if [ $# -eq 1 ]; then
-    input=$1
+if [ $# -ge 1 ]; then
+    input="$@"
     node ${entry}/start-process.js ${input}
 else
     echo "No arguments supplied"
