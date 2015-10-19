@@ -12,7 +12,8 @@
     "plex-api-credentials": "^2.0.0",
     "touch": "^1.0.0",
     "tvdb": "0.0.13",
-    "winston": "^1.0.1"
+    "winston": "^1.0.1",
+    "winston-loggly": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {

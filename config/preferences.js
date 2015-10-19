@@ -9,13 +9,19 @@ module.exports = {
     tvDestDirectory: '/drives/eve/tv',
 
     // where should we log use full paths
-    loggingFile: '/opt/tv-processor/logs/log.txt',
+    loggingFile: '/opt/what-tools/logs/log.txt',
 
     // should we symlink - false or move - true
     move: 'false',
 
     // if this is set we'll send completes via prowl
     PROWL_API_KEY: process.env.PROWL_API_KEY || '',
+    LOGGLY_OPTIONS: {
+        token: process.env.LOGGLY_KEY || '',
+        subdomain: "enpfeff",
+        tags: ["what-tools"],
+        json:true
+    },
 
     // How the Tv shows will be moved or symlinked into the tvDestDirectory
     //

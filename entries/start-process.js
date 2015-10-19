@@ -21,8 +21,10 @@ var commands = require('../lib/commands');
 var parser = require('../lib/parsers/scene');
 var log = require('../lib/loggerFactory');
 var plex = require('../lib/plexUpdater');
-
+var Logger = require('le_node');
 var logger = log.getLogger();
+
+logger.log('info',"Hello World from Node.js!");
 
 var tv = ((args.m) || (args.movie)) ? false : true;
 var movie = ((args.m) || (args.movie)) ? true : false;
@@ -115,8 +117,8 @@ if (args._.length === 1) {
     if (logger.prowl) {
         var msg = path.basename(srcFile) + ' Successfully Downloaded';
 
-        logger.prowl.push(msg, 'What', function( err, remaining ){
-            if( err ) throw err;
+        logger.prowl.push(msg, 'What', function( error, remaining ){
+            if( error ) throw error;
         });
     }
 
