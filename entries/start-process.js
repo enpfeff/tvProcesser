@@ -21,7 +21,6 @@ var commands = require('../lib/commands');
 var parser = require('../lib/parsers/scene');
 var log = require('../lib/loggerFactory');
 var plex = require('../lib/plexUpdater');
-var Logger = require('le_node');
 var logger = log.getLogger();
 
 logger.log('info',"Hello World from Node.js!");
