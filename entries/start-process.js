@@ -23,8 +23,6 @@ var log = require('../lib/loggerFactory');
 var plex = require('../lib/plexUpdater');
 var logger = log.getLogger();
 
-logger.log('info',"Hello World from Node.js!");
-
 var tv = ((args.m) || (args.movie)) ? false : true;
 var movie = ((args.m) || (args.movie)) ? true : false;
 if (movie) {
