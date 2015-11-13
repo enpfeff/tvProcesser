@@ -37,5 +37,13 @@ module.exports = {
         PLEX_URL: '192.168.1.5',
         user: '',
         password: ''
+    },
+
+    mongodb: {
+        user: 'enpfeff',
+        pass: 're86uvin',
+        host: 'ds039484.mongolab.com',
+        port: '39484',
+        name: 'what-tools-dev'
     }
 };

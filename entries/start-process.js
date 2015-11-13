@@ -6,6 +6,7 @@ var _ = require('lodash');
 var args = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var fs = require('fs');
+var MongoClient = require('mongodb').MongoClient;
 
 var dev = false;
 //check arguments
@@ -16,11 +17,13 @@ if ((args.d) || (args.dev)) {
 }
 var config = dev ? require('../config/configFactory').getConfig('dev') : require('../config/configFactory').getConfig();
 
+var CONSTANTS = require('../lib/constants');
 var utils = require('../lib/utils');
 var commands = require('../lib/commands');
 var parser = require('../lib/parsers/scene');
 var log = require('../lib/loggerFactory');
 var plex = require('../lib/plexUpdater');
+var Torrent = require('../lib/models/Torrent');
 var logger = log.getLogger();
 
 var tv = ((args.m) || (args.movie)) ? false : true;
@@ -31,9 +34,12 @@ if (movie) {
     logger.info('tv found');
 }
 
+
 // ------------------------------------------------------------------------
 // Main
 // ------------------------------------------------------------------------
+
+var dbUrl = utils.createMongoUrl(config.mongodb);
 
 //1. check to see if destination directory exists and make it if not
 utils.exists(config.tvDestDirectory, true);
@@ -55,7 +61,8 @@ if ((args.h) || (args.help)) {
 // Process
 // ------------------------------------------------------------------------
 
-if (args._.length === 1) {
+console.log(args._.length);
+if (args._.length >= 1) {
     var srcFile = args._[0];
     // ok were good to go lets do our job
     if (!utils.exists(srcFile)) {
@@ -110,6 +117,20 @@ if (args._.length === 1) {
             plex.refreshLibraries(keys);
         });
     }
+
+
+    var type = movie ? CONSTANTS.MOVIE : CONSTANTS.TV;
+    var torrent = new Torrent(path.basename(srcFile), srcFile, type);
+    MongoClient.connect(dbUrl, function(err, db) {
+        torrent.insertUnique(db, CONSTANTS.DOWNLOAD_COLLECTION_NAME, function(res) {
+            if (res) {
+                logger.info('Successfully Updated the Database');
+            } else {
+                logger.info('File Already in DB');
+            }
+            db.close();
+        })
+    });
 
     if (logger.prowl) {
         var msg = path.basename(srcFile) + ' Successfully Downloaded';
