@@ -4,6 +4,7 @@
   "description": "This will parse out info from a downloaded file and put it into a directory",
   "main": "start.js",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
